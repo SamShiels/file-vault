@@ -12,7 +12,6 @@ import (
 
 type Server struct {
 	echo *echo.Echo
-	api  *endpoint.Api
 }
 
 func (s *Server) Start() {
@@ -22,6 +21,7 @@ func (s *Server) Start() {
 	s.echo.Use(middleware.Recover())
 
 	fileRepo := &repository.FileRepository{}
+	fileRepo.Connect()
 	fileService := service.NewFileService(fileRepo)
 	api := endpoint.NewApi(fileService)
 
